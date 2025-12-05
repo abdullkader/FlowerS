@@ -115,7 +115,7 @@ function strongExplosion(x, y) {
 function explodeHearts() {
     // عدد القلوب في الانفجار الواحد (عدّل الرقم للتكثيف)
     const amount = 25; 
-    word = ["❤️","I love you","❤️","My everything","❤️", "My eyes","❤️","My angel","❤️","My sweet","❤️","S","❤️","My sweetheart","❤️","My moon","❤️","My sun","❤️","My honey","❤️","My life","❤️","My soul","❤️","My mistress","❤️","My princess","❤️"][Math.floor(Math.random()*24)];
+    word = ["❤️","I love you","❤️","My everything","❤️", "My eyes","❤️","My angel","❤️","My sweet","❤️","S ❤️ A","❤️","My sweetheart","❤️","My moon","❤️","My sun","❤️","My honey","❤️","My life","❤️","My soul","❤️","My mistress","❤️","My princess","❤️"][Math.floor(Math.random()*24)];
     for (let i = 0; i < amount; i++) {
         const heart = document.createElement("div");
         heart.classList.add("heart-explode");
