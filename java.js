@@ -1,4 +1,26 @@
+import { butterfliesBackground } from 'https://unpkg.com/threejs-toys@0.0.7/build/threejs-toys.module.cdn.min.js'
 
+const pc = butterfliesBackground({
+	el: document.getElementById('app'),
+	eventsEl: document.body,
+  gpgpuSize: 42,
+	background: 0xfad0c4,
+	material: 'basic',
+	materialParams: { transparent: true, alphaTest: 0.5 },
+	texture: 'https://assets.codepen.io/33787/butterflies.png',
+	textureCount: 4,
+	wingsScale: [1, 1, 1],
+	wingsWidthSegments: 8,
+	wingsHeightSegments: 8,
+	wingsSpeed: 0.75,
+	wingsDisplacementScale: 1.25,
+	noiseCoordScale: 0.01,
+	noiseTimeCoef: 0.0005,
+	noiseIntensity: 0.0025,
+	attractionRadius1: 100,
+	attractionRadius2: 150,
+	maxVelocity: 0.1,
+});
 // إنشاء البتلات
 const flower = document.querySelector('.flower');
 const petalCount = 18;
@@ -63,53 +85,22 @@ document.addEventListener("pointerdown", (e) => {
     spawnBalloon(e.clientX, e.clientY);
 });
 
+const video = document.getElementById("bgVideo");
 
-function spawnBalloon(x, y) {
-    const balloon = document.createElement("div");
-    balloon.className = "balloon";
-    balloon.style.left = x + "px";
-    balloon.style.top = y + "px";
+function enableSound() {
+  video.muted = false;
+  video.volume = 1.0;
 
-    // لون عشوائي
-    const colors = ["#ff3b8d", "#ff6bcb", "#ffae00", "#00d1ff", "#7dff7a", "#b84bff"];
-    balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+  // محاولة تشغيل الفيديو بالصوت بعد التفاعل
+  video.play().catch(() => {});
 
-    document.getElementById("touch-effects").appendChild(balloon);
-    setTimeout(() => balloon.remove(), 2000);
+  // بعد نجاح أول تفاعل، احذف المستمعين
+  document.removeEventListener("click", enableSound);
+  document.removeEventListener("touchstart", enableSound);
 }
 
-
-function strongExplosion(x, y) {
-    const amount = 25; // عدد الشرارات
-    const radius = 150; // قوة الانفجار (كلما كبر زاد الانتشار)
-
-    for (let i = 0; i < amount; i++) {
-        const spark = document.createElement("div");
-        spark.className = "spark";
-
-        // زاوية كل شرارة (360 درجة)
-        const angle = (i / amount) * 2 * Math.PI;
-
-        // الاتجاه الدائري
-        const dx = Math.cos(angle) * radius;
-        const dy = Math.sin(angle) * radius;
-
-        spark.style.left = x + "px";
-        spark.style.top = y + "px";
-
-        // تمرير الحركة للـ CSS
-        spark.style.setProperty("--x", dx + "px");
-        spark.style.setProperty("--y", dy + "px");
-
-        // لون عشوائي للمفرقعات
-        const colors = ["yellow", "orange", "#ffdd00", "#ff1e00", "white"];
-        spark.style.background = colors[Math.floor(Math.random() * colors.length)];
-
-        document.getElementById("touch-effects").appendChild(spark);
-
-        setTimeout(() => spark.remove(), 800);
-    }
-}
+document.addEventListener("click", enableSound);
+document.addEventListener("touchstart", enableSound);
 
 
 function explodeHearts() {
